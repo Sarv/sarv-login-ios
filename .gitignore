@@ -120,3 +120,7 @@ Backups.backupdb
 .MobileBackups.trash
 MobileBackups.trash
 tmbootpicker.efi
+
+# SwiftPM / Xcode local state
+.swiftpm/
+DerivedData/
