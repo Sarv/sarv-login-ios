@@ -22,6 +22,7 @@ protocol and rules as the web SDK [sarv-login-js](https://github.com/Sarv/sarv-l
 ## Contents
 
 - [Requirements](#requirements)
+- [Example app](#example-app)
 - [How it works](#how-it-works)
 - [1. Register a public app](#1-register-a-public-app)
 - [2. Install](#2-install)
@@ -50,6 +51,22 @@ protocol and rules as the web SDK [sarv-login-js](https://github.com/Sarv/sarv-l
 - A Sarv developer account to register the app.
 - A custom-scheme redirect URI (recommended) works on iOS 15+; an `https` universal-link
   redirect URI needs iOS 17.4+.
+
+## Example app
+
+[`Example/`](Example) is a small SwiftUI app built on this package: sign in (and sign in to
+another account with an ephemeral session), restore the session at launch, show the
+profile and token state, get a fresh access token, and sign out.
+
+1. Register a public app on the Sarv developer dashboard with the redirect URI
+   `com.sarv.authexample:/oauth2redirect` (or change it in the next step).
+2. Open `Example/SarvAuthExample.xcodeproj` and set your client id in
+   `SarvAuthExample/SarvConfig.swift`.
+3. Run the `SarvAuthExample` scheme on a simulator or a device (iOS 16+). For a device,
+   pick your team under *Signing & Capabilities*.
+
+The project uses the package from this checkout (`..`), so SDK changes show up in the app
+straight away. Until a client id is set, the app runs but Sarv rejects the sign-in.
 
 ## How it works
 
@@ -452,6 +469,8 @@ authorization request and the server-side exchange.
 swift build
 swift test      # runs on macOS — the core is platform-independent
 xcodebuild -scheme SarvAuth -destination 'generic/platform=iOS' build
+xcodebuild -project Example/SarvAuthExample.xcodeproj -scheme SarvAuthExample \
+  -destination 'generic/platform=iOS Simulator' build
 pod lib lint --allow-warnings
 ```
 
